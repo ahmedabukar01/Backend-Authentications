@@ -3,18 +3,18 @@
 # ------------------------------------------------------
 
 type Auth {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
-input CreateAuthInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  createdAt: String!
+  email: String!
+  id: String!
+  password: String!
+  refreshToken: String!
+  updatedAt: String!
+  username: String!
 }
 
 type Mutation {
-  createAuth(createAuthInput: CreateAuthInput!): Auth!
   removeAuth(id: Int!): Auth!
+  signup(signUpInput: SignUpInput!): SignResponse!
   updateAuth(updateAuthInput: UpdateAuthInput!): Auth!
 }
 
@@ -22,8 +22,29 @@ type Query {
   auth(id: Int!): Auth!
 }
 
+type SignResponse {
+  accessToken: String!
+  refreshToken: String!
+  user: UserEntity!
+}
+
+input SignUpInput {
+  email: String!
+  password: String!
+  username: String!
+}
+
 input UpdateAuthInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  email: String
   id: Int!
+  password: String
+  username: String
+}
+
+type UserEntity {
+  email: String!
+
+  """User id"""
+  id: String!
+  username: String!
 }
