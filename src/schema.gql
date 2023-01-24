@@ -7,19 +7,29 @@ type Auth {
   email: String!
   id: String!
   password: String!
-  refreshToken: String!
+  refreshToken: String
   updatedAt: String!
   username: String!
 }
 
+type LogOutResponse {
+  logout: Boolean!
+}
+
 type Mutation {
-  removeAuth(id: Int!): Auth!
+  logout(id: String!): LogOutResponse!
+  signInInput(signInInput: SignInInput!): SignResponse!
   signup(signUpInput: SignUpInput!): SignResponse!
   updateAuth(updateAuthInput: UpdateAuthInput!): Auth!
 }
 
 type Query {
-  auth(id: Int!): Auth!
+  allUsers: [Auth!]!
+}
+
+input SignInInput {
+  email: String!
+  password: String!
 }
 
 type SignResponse {

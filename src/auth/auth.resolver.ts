@@ -4,6 +4,8 @@ import { Auth } from './entities/auth.entity';
 import { SignUpInput } from './dto/signup-input';
 import { UpdateAuthInput } from './dto/update-auth.input';
 import { SignResponse } from './dto/sign-response-dto';
+import { SignInInput } from './dto/sign-in-input';
+import { LogOutResponse } from './dto/log-out-dtos';
 
 @Resolver(() => Auth)
 export class AuthResolver {
@@ -14,14 +16,14 @@ export class AuthResolver {
     return this.authService.signup(signUpInput);
   }
 
-  @Query(() => [Auth], { name: 'auth' })
-  findAll() {
-    return this.authService.findAll();
+  @Mutation(() => SignResponse, { name: 'signInInput' })
+  signIn(@Args('signInInput') signInInput: SignInInput) {
+    return this.authService.signIn(signInInput);
   }
 
-  @Query(() => Auth, { name: 'auth' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.authService.findOne(id);
+  @Query(() => [Auth], { name: 'allUsers' })
+  findAll() {
+    return this.authService.findAll();
   }
 
   @Mutation(() => Auth)
@@ -29,8 +31,8 @@ export class AuthResolver {
     return this.authService.update(updateAuthInput.id, updateAuthInput);
   }
 
-  @Mutation(() => Auth)
-  removeAuth(@Args('id', { type: () => Int }) id: number) {
-    return this.authService.remove(id);
+  @Mutation(() => LogOutResponse)
+  logout(@Args('id', { type: () => String }) id: string) {
+    return this.authService.logout(id);
   }
 }

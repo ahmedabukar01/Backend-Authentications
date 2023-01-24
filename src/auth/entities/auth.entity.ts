@@ -14,7 +14,7 @@ export class Auth {
   @Field(() => String)
   password: string;
 
-  @Field(() => String)
+  @Field(() => String, {nullable: true})
   refreshToken?: string;
 
   @Field(() => String)
