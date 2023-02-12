@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -97,6 +97,27 @@ export class AuthService {
     await this.Prisma.user.update({
       where: {id: userId}, data: {refreshToken}
     })
+  }
+
+  async getNewTokens(userId: string, rt: string){
+    const user = await this.Prisma.user.findUnique({
+      where: {id: userId}
+    })
+    
+    if(!user){
+      throw new ForbiddenException("Access Denied")
+    }
+    const doRefreshTokensMatch = await argon.verify(user.refreshToken, rt);
+    if(!doRefreshTokensMatch){
+      throw new ForbiddenException("Access Denied")
+    }
+    const {accessToken, refreshToken} = await this.createTokens(
+      user.id,
+      user.email
+    )
+
+    await this.updateRefreshToken(user.id, refreshToken);
+    return {accessToken, refreshToken, user}
   }
 }
 

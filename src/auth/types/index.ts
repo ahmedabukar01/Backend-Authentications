@@ -2,6 +2,6 @@ export type jwtPayload = {
     email: string
     userId: string
 }
-export type jwtPayloadWithRefreshtoken = {
+export type JwtPayloadWithRefreshtoken = jwtPayload & {
     refreshToken: string
 }
