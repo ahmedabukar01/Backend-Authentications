@@ -78,7 +78,7 @@ export class AuthService {
       email,
     }, 
     {
-      expiresIn: '10s', 
+      expiresIn: '1h', 
       secret: this.configServices.get('ACCESSTOKEN')
     })
 
@@ -87,7 +87,7 @@ export class AuthService {
       email,
       accessToken,
     }, {
-      expiresIn: '10s',
+      expiresIn: '1h',
       secret: this.configServices.get('REFRESHTOKEN')
     })
     return {accessToken, refreshToken}

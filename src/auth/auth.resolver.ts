@@ -6,6 +6,7 @@ import { UpdateAuthInput } from './dto/update-auth.input';
 import { SignResponse } from './dto/sign-response-dto';
 import { SignInInput } from './dto/sign-in-input';
 import { LogOutResponse } from './dto/log-out-dtos';
+import { Public } from './decorators/public.decorator';
 
 @Resolver(() => Auth)
 export class AuthResolver {
@@ -16,6 +17,7 @@ export class AuthResolver {
     return this.authService.signup(signUpInput);
   }
 
+  @Public()
   @Mutation(() => SignResponse, { name: 'signInInput' })
   signIn(@Args('signInInput') signInInput: SignInInput) {
     return this.authService.signIn(signInInput);
@@ -34,5 +36,11 @@ export class AuthResolver {
   @Mutation(() => LogOutResponse)
   logout(@Args('id', { type: () => String }) id: string) {
     return this.authService.logout(id);
+  }
+
+  // @Public()
+  @Query(()=> String)
+  hello(){
+    return 'helloooo World'
   }
 }
