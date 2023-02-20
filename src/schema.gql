@@ -17,10 +17,17 @@ type LogOutResponse {
 }
 
 type Mutation {
+  getNewToken: NewTokenResponse!
   logout(id: String!): LogOutResponse!
   signInInput(signInInput: SignInInput!): SignResponse!
   signup(signUpInput: SignUpInput!): SignResponse!
   updateAuth(updateAuthInput: UpdateAuthInput!): Auth!
+}
+
+type NewTokenResponse {
+  accessToken: String!
+  refreshToken: String!
+  user: String!
 }
 
 type Query {

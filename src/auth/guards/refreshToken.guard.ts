@@ -3,7 +3,7 @@ import { GqlExecutionContext } from "@nestjs/graphql";
 import { AuthGuard } from "@nestjs/passport";
 
 @Injectable()
-export class TokenGuard extends AuthGuard('refreshStrategy') {
+export class RefreshTokenGuard extends AuthGuard('refreshStrategy') {
     constructor(){
         super();
     }

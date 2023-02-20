@@ -4,6 +4,7 @@ import { AuthResolver } from './auth.resolver';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
 import { TokenStrategy } from './strategies/accessToken.strategies';
+import { RefreshTokenStrategy } from './strategies/refreshToken.strategy';
 
 @Module({
   providers: [
@@ -11,7 +12,8 @@ import { TokenStrategy } from './strategies/accessToken.strategies';
     AuthService, 
     JwtService, 
     PrismaService,
-    TokenStrategy
+    TokenStrategy,
+    RefreshTokenStrategy
   ]
 })
 export class AuthModule {}
